@@ -1,0 +1,12 @@
+version: "3.8"
+
+services: 
+    crud:
+        container_name: week-6-task
+        build: ./
+        working_dir: /app
+        command: yarn start
+        ports: 
+            - 4500:4500
+        volumes: 
+            - ./:/app
