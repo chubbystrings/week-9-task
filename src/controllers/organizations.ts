@@ -40,6 +40,13 @@ export async function getAllOrganizations(req: Request, res: Response): Promise<
     const skip = (page - 1) * (limit);
     const allOrg = await OrgSchema.find({}).skip(skip).limit(limit);
     const numberOfOrg = await OrgSchema.count();
+    if (page > numberOfOrg) {
+      return res.status(500).json({
+        status: 'error',
+        message: `no page with number ${page} found`,
+        data: [],
+      });
+    }
     const next = (numberOfOrg - (page * limit)) <= 0 ? null : (page + 1);
     return res.status(200).json({
       status: 'success',
